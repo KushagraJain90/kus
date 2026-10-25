@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "284036663515",
+    "project_id": "inkora-ai-f9f84",
+    "storage_bucket": "inkora-ai-f9f84.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284036663515:android:07d46e390d7fa32c89a4fe",
+        "android_client_info": {
+          "package_name": "com.example.esso"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "284036663515-ti1gnpa0ovrou4g82bp7dc97g5fusfcf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.esso",
+            "certificate_hash": "f6d7cd61d3ecb9a9442d1f55f152c954761b6169"
+          }
+        },
+        {
+          "client_id": "284036663515-mbc3eplrb67p3k203k659847ahks3b3b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7T8unm194eQjCGeanfk_3umfvgx-K2GE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "284036663515-mbc3eplrb67p3k203k659847ahks3b3b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "284036663515-071fgv0350lcndfsnm492d63mr77a62e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.esso"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
