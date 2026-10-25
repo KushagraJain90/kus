@@ -1,13 +1,19 @@
 
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter/material.dart';
 
 class DocumentImportService {
-  DocumentImportService({ImagePicker? picker})
-      : _picker = picker ?? ImagePicker();
+  DocumentImportService({
+    ImagePicker? picker,
+    ImageCropper? cropper,
+  })  : _picker = picker ?? ImagePicker(),
+        _cropper = cropper ?? ImageCropper();
 
   final ImagePicker _picker;
+  final ImageCropper _cropper;
 
-  /// Select multiple handwritten page images from the gallery.
+  /// Select handwritten page images from the gallery.
   Future<List<XFile>> pickImages({
     int maxImages = 100,
   }) async {
@@ -15,15 +21,12 @@ class DocumentImportService {
       throw ArgumentError('maxImages must be at least 1.');
     }
 
-    final List<XFile> selectedImages =
-    await _picker.pickMultiImage();
+    final selectedImages = await _picker.pickMultiImage();
 
-    // The user may cancel the picker.
     if (selectedImages.isEmpty) {
       return [];
     }
 
-    // Never silently discard extra pages.
     if (selectedImages.length > maxImages) {
       throw StateError(
         'You selected ${selectedImages.length} images. '
@@ -34,11 +37,37 @@ class DocumentImportService {
     return selectedImages;
   }
 
-  /// Capture one page using the device camera.
+  /// Capture one page and open the crop interface.
   Future<XFile?> captureImage() async {
-    return _picker.pickImage(
+    final capturedImage = await _picker.pickImage(
       source: ImageSource.camera,
       imageQuality: 95,
     );
+
+    if (capturedImage == null) {
+      return null;
+    }
+
+    final croppedImage = await _cropper.cropImage(
+      sourcePath: capturedImage.path,
+      compressQuality: 95,
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: 'Crop your page',
+          toolbarColor: const Color(0xFF536DFE),
+          toolbarWidgetColor: const Color(0xFFFFFFFF),
+          lockAspectRatio: false,
+          hideBottomControls: false,
+        ),
+      ],
+    );
+
+    // The user may cancel cropping.
+    if (croppedImage == null) {
+      return null;
+    }
+
+    return XFile(croppedImage.path);
   }
 }
+
